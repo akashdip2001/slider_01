@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Slider with Working Buttons</title>
+    <style>
+        /* General body styling */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            background-color: #333;
+        }
+
+        /* About section */
+        #about {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 1rem;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Slider container */
+        .slider {
+            position: relative;
+            width: 100%;
+            max-width: 800px; /* Optional, you can remove for full width */
+            margin: auto;
+            overflow: hidden;
+        }
+
+        /* Slides wrapper */
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        /* Each slide styling */
+        .slide {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Iframe video styles */
+        iframe {
+            width: 100%;
+            height: 450px;
+            border: none;
+        }
+
+        /* Buttons for sliding */
+        .prev, .next {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+
+        /* Slider info text */
+        .slider-info {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 1rem;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            iframe {
+                height: 300px;
+            }
+
+            .slider-info {
+                font-size: 0.9rem;
+            }
+
+            .prev, .next {
+                padding: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            iframe {
+                height: 200px;
+            }
+
+            .slider-info {
+                font-size: 0.8rem;
+            }
+
+            .prev, .next {
+                padding: 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section id="about">
+        <div class="about-content">
+            <div class="slider">
+                <button class="prev" onclick="prevSlide()">&#10094;</button>
+                <div class="slides">
+                    <div class="slide">
+                        <iframe src="https://www.youtube.com/embed/61fOnn4gTX0" allow="autoplay; encrypted-media" allowfullscreen sandbox="allow-same-origin allow-scripts"></iframe>
+                    </div>
+                    <div class="slide">
+                        <iframe src="https://www.youtube.com/embed/3cuoncYnio8" allow="autoplay; encrypted-media" allowfullscreen sandbox="allow-same-origin allow-scripts"></iframe>
+                    </div>
+                    <div class="slide">
+                        <iframe src="https://www.youtube.com/embed/FcHbbZEvMes" allow="autoplay; encrypted-media" allowfullscreen sandbox="allow-same-origin allow-scripts"></iframe>
+                    </div>
+                    <div class="slide">
+                        <iframe src="https://www.youtube.com/embed/VIDEO_ID3" allow="autoplay; encrypted-media" allowfullscreen sandbox="allow-same-origin allow-scripts"></iframe>
+                    </div>
+                    <div class="slide">
+                        <iframe src="https://www.youtube.com/embed/A0tLcT_ouCk" allow="autoplay; encrypted-media" allowfullscreen sandbox="allow-same-origin allow-scripts"></iframe>
+                    </div>
+                </div>
+                <button class="next" onclick="nextSlide()">&#10095;</button>
+                <h3 class="slider-info">All videos are Private, You can see those videos only in this Website.</h3>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        let slideIndex = 0;
+        const slides = document.querySelector('.slides');
+        const totalSlides = document.querySelectorAll('.slide').length;
+
+        // Display initial slide
+        showSlide(slideIndex);
+
+        function showSlide(index) {
+            if (index >= totalSlides) {
+                slideIndex = 0; // Wrap around to the first slide
+            } else if (index < 0) {
+                slideIndex = totalSlides - 1; // Wrap around to the last slide
+            } else {
+                slideIndex = index;
+            }
+
+            // Use percentage to move the slides
+            const offset = -slideIndex * 100;
+            slides.style.transform = `translateX(${offset}%)`;
+        }
+
+        function nextSlide() {
+            showSlide(slideIndex + 1);
+        }
+
+        function prevSlide() {
+            showSlide(slideIndex - 1);
+        }
+
+        // Optional: Auto-slide every 5 seconds
+        // setInterval(nextSlide, 5000);
+    </script>
+</body>
+</html>
